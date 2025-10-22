@@ -12,13 +12,17 @@ class SPTForgeClient # TODO: handle response errors
     })
   end
 
+  def get(url)
+    @http.get("#{API_BASE}/#{url}")
+  end
+
   def get_mod(mod_id)
-    res = @http.get( "#{API_BASE}/mod/#{mod_id}")
+    res = get("mod/#{mod_id}")
     JSON.parse(res.body, symbolize_names: true)
   end
 
   def get_mod_versions(mod_id)
-    raw_res = @http.get("#{API_BASE}/mod/#{mod_id}/versions")
+    raw_res = get("mod/#{mod_id}/versions")
     res = JSON.parse(raw_res.body, symbolize_names: true)
 
     pages = res[:meta][:links]
@@ -28,7 +32,8 @@ class SPTForgeClient # TODO: handle response errors
 
     versions << pages.uniq.map do |page|
       next if page[:url].nil? || page[:active] || page[:label].include?("Next")
-      raw_page_res = @http.get(page[:url])
+      binding.pry
+      raw_page_res = get(page[:url])
       page_res = JSON.parse(raw_page_res.body, symbolize_names: true)
       # TODO: API error checking
       page_res[:data]

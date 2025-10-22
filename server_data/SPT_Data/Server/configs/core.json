@@ -1,0 +1,25 @@
+{
+    "sptVersion": "3.11.3",
+    "projectName": "SPT",
+    "compatibleTarkovVersion": "0.16.0.35392",
+    "serverName": "SPT Server",
+    "profileSaveIntervalSeconds": 15,
+    "sptFriendNickname": "SPT",
+    "allowProfileWipe": true,
+    "bsgLogging": {
+        "verbosity": 6,
+        "sendToServer": false
+    },
+    "release": {
+        "betaDisclaimerTimeoutDelay": 30
+    },
+    "fixes": {
+        "fixShotgunDispersion": true,
+        "removeModItemsFromProfile": false,
+        "removeInvalidTradersFromProfile": false,
+        "fixProfileBreakingInventoryItemIssues": false
+    },
+    "customWatermarkLocaleKeys": [],
+    "commit": "7a9a346bb2a08bffb965150784ca7869741804b1",
+    "buildTime": 1744140374083
+}
