@@ -1,1 +1,3 @@
 ./fake_server/
+fake_server
+.env
