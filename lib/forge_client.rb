@@ -1,18 +1,20 @@
+# https://wiki.project-fika.com/advanced-features/fika-api
+#
 require 'pry'
 require 'httpx'
-
-API_BASE = "https://forge.sp-tarkov.com/api/v0"
 
 class SPTForgeClient # TODO: handle response errors
   attr_accessor :http
 
-  def initialize
+  def initialize(spt_url)
+    @spt_url = spt_url
     @http = HTTPX.with(headers: {
       authorization: "Bearer #{ENV["SPT_FORGE_TOKEN"]}"
     })
   end
 
   def get(url)
+    # TODO: API error checking
     @http.get("#{API_BASE}/#{url}")
   end
 
@@ -32,10 +34,11 @@ class SPTForgeClient # TODO: handle response errors
 
     versions << pages.uniq.map do |page|
       next if page[:url].nil? || page[:active] || page[:label].include?("Next")
-      binding.pry
+
+      # binding.pry
       raw_page_res = get(page[:url])
       page_res = JSON.parse(raw_page_res.body, symbolize_names: true)
-      # TODO: API error checking
+
       page_res[:data]
     end
     versions.flatten!.uniq!.compact!
